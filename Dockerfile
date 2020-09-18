@@ -5,7 +5,7 @@ COPY ./package*.json ./
 RUN npm ci
 
 COPY ./  ./
-RUN npm run build:prod
+RUN npm run build
 
 FROM node:13-alpine as production
 WORKDIR /app
