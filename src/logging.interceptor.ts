@@ -7,13 +7,16 @@ export class LoggingInterceptor implements NestInterceptor {
 	private logger = new Logger();
 
 	intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-		this.logger.debug(`Received message controller[${context.getClass().name}.${context.getHandler().name}]. data: [${context.getArgs()}]`);
+		const req = context.getArgByIndex(0);
+		const res = context.getArgByIndex(1);
+
+		this.logger.debug(`Received message controller [${context.getClass().name}.${context.getHandler().name}] | arguments: { path: ${JSON.stringify(req.path)}, params: ${JSON.stringify(req.params)}}`);
 
 		const now = Date.now();
 		return next
 			.handle()
 			.pipe(
-				tap(() => console.log(`Received message controller[${context.getClass().name}.${context.getHandler().name}]. ${Date.now() - now}ms`)),
+				tap((data) => this.logger.debug(`Received message controller [${context.getClass().name}.${context.getHandler().name}] | status: ${res.statusCode} | duration: ${Date.now() - now}ms | { data: ${JSON.stringify(data)} }`)),
 			);
 	}
 }
