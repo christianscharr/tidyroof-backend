@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PredictionServiceClient } from '@google-cloud/automl';
 import * as fs from 'fs';
+import * as sharp from 'sharp';
 
 export interface PredictionResult {
   productId: string,
@@ -24,14 +25,28 @@ export class PredictionService {
   // Instantiates a client
   private client = new PredictionServiceClient();
 
-  async getPrediction(filePath: string): Promise<PredictionResult[]> {
-    const imageBytes = fs.readFileSync(filePath);
+  protected async loadImageToBuffer(imageFile: fs.PathLike) {
+    return new Promise<Buffer>((resolve, reject) => {
+      fs.readFile(imageFile, (err, data) => {
+        if (err) {
+          console.error(`Failed to read uploaded image`, err);
+          reject(err);
+        }
+
+        resolve(data);
+      });
+    });
+  }
+
+  async getPrediction(imageFile: fs.PathLike): Promise<PredictionResult[]> {
+    const imageBuffer = await this.loadImageToBuffer(imageFile);
+    const normalizedImage = await sharp(imageBuffer).rotate().toBuffer(); // auto-orient based on the EXIF orientation
 
     const request = {
       name: this.client.modelPath(PredictionService.PROJECT_ID, PredictionService.REGION, PredictionService.MODEL_ID),
       payload: {
         image: {
-          imageBytes,
+          imageBytes: new Uint8Array(normalizedImage),
         },
       },
       params: {
