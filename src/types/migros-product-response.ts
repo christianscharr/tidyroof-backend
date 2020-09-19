@@ -133,7 +133,7 @@ export interface Nutrient {
 export interface Allergen {
 	code:               string;
 	name:               string;
-	contamination_code: string;
+	contamination_code: "ENTHALTEN" | "KANN_ENTHALTEN";
 	contamination:      string;
 }
 
