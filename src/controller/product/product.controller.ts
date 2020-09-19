@@ -32,6 +32,6 @@ export class ProductController {
 		console.log(file);
 		const predictions = await this.predictionService.getPrediction(file.buffer);
 		console.log(predictions);
-		return [await this.productService.getProduct('120215100000')];
+		return predictions;
 	}
 }
