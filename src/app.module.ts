@@ -6,7 +6,7 @@ import {PredictionService} from './service/prediction.service';
 @Module({
     imports: [HttpModule.registerAsync({
         useFactory: () => ({
-            timeout: 30000,
+            timeout: 60000,
         }),
     }),
     ],

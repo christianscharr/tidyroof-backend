@@ -15,6 +15,11 @@ export class ProductController {
     return await this.productService.getProduct(params.id);
   }
 
+  @Get('/gtin/:gtin')
+  public async getProductInformationByGtin(@Param() params) {
+    return await this.productService.getProductByGtin(params.gtin);
+  }
+
 
   @Post('/recommended')
   public async getRecommendedProducts(@Body() body) {
