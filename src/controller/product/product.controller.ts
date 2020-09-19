@@ -1,36 +1,37 @@
-import { Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ProductService } from '../../service/product.service';
-import { PredictionService } from '../../service/prediction.service';
+import {Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {FileInterceptor} from '@nestjs/platform-express';
+import {PredictionService} from '../../service/prediction.service';
+import {ProductService} from '../../service/product.service';
 
 @Controller('product')
 export class ProductController {
 
-  constructor(private productService: ProductService,
-              private predictionService: PredictionService) {
-  }
+	constructor(private productService: ProductService,
+				private predictionService: PredictionService) {
+	}
 
-  @Get('/:id')
-  public async getProductInformation(@Param() params) {
-    return await this.productService.getProduct(params.id);
-  }
+	@Get('/:id')
+	public async getProductInformation(@Param() params) {
+		return await this.productService.getProduct(params.id);
+	}
 
-  @Get('/gtin/:gtin')
-  public async getProductInformationByGtin(@Param() params) {
-    return await this.productService.getProductByGtin(params.gtin);
-  }
+	@Get('/gtin/:gtin')
+	public async getProductInformationByGtin(@Param() params) {
+		return await this.productService.getProductByGtin(params.gtin);
+	}
 
 
-  @Post('/recommended')
-  public async getRecommendedProducts(@Body() body) {
-    return await this.productService.getRecommendedProducts(body.id, body.allergens);
-  }
+	@Post('/recommended')
+	public async getRecommendedProducts(@Body() body) {
+		return await this.productService.getRecommendedProducts(body.id, body.allergens);
+	}
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file) {
-    console.log(file);
-    console.log(await this.predictionService.getPrediction(file.buffer));
-    return [await this.productService.getProduct('120215100000')];
-  }
+	@Post('upload')
+	@UseInterceptors(FileInterceptor('file'))
+	async uploadFile(@UploadedFile() file) {
+		console.log(file);
+		const predictions = await this.predictionService.getPrediction(file.buffer);
+		console.log(predictions);
+		return [await this.productService.getProduct('120215100000')];
+	}
 }
