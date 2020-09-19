@@ -5,14 +5,15 @@ import {mapResponseToProduct} from "./product.mapper";
 
 @Injectable()
 export class ProductService {
-    cache: { [key: string]: Product } = {};
+    productCache: { [key: string]: Product } = {};
+    productListCache: { [key: string]: ProductResponse[] } = {};
 
     constructor(private http: HttpService) {
     }
 
     async getProduct(id: string): Promise<Product> {
-        if (this.cache[id]) {
-            return this.cache[id];
+        if (this.productCache[id]) {
+            return this.productCache[id];
         }
         const response = await this.http.get<ProductResponse>('https://hackzurich-api.migros.ch/products/' + id + '?view=browse&custom_image=false', {
             auth: {
@@ -30,12 +31,17 @@ export class ProductService {
         }
 
         let product = mapResponseToProduct(response.data);
-        this.cache[id] = product;
+        this.productCache[id] = product;
         return product;
     }
 
-    async getRecommendedProducts(id: string, allergens: string[]): Promise<Product[]> {
+    async getRecommendedProducts(id: string, allergens: string[]): Promise<ProductResponse[]> {
         const product = await this.getProduct(id);
+
+        const key = id + allergens.sort().join(', ');
+        if (this.productListCache[key]) {
+            return this.productListCache[key];
+        }
 
         const response = await this.http.get<{products: ProductResponse[]}>('https://hackzurich-api.migros.ch/products?' + 'limit=10&offset=0&facet_sort_order=asc&order=asc&region=national&view=browse&custom_image=false', {
             params: {
@@ -52,7 +58,9 @@ export class ProductService {
             }
         }).toPromise();
 
-        return <any>response.data.products;
+        let productList = response.data.products;
+        this.productListCache[key] = productList;
+        return productList;
     }
 
     private getAllergensQuery(allergens: string[]) {
