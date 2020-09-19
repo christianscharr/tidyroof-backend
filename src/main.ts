@@ -4,7 +4,12 @@ import {LoggingInterceptor} from './interceptor/logging.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.useGlobalInterceptors(new LoggingInterceptor());
+  app.enableCors({
+    origin: "*",
+  });
+
   await app.listen(3000);
 }
 bootstrap();
