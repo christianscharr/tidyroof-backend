@@ -30,7 +30,7 @@ export class ProductController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
     console.log(file);
-    console.log(await this.predictionService.getPrediction(file));
+    console.log(await this.predictionService.getPrediction(file.buffer));
     return [await this.productService.getProduct('120215100000')];
   }
 }

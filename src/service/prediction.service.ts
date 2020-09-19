@@ -38,8 +38,7 @@ export class PredictionService {
     });
   }
 
-  async getPrediction(imageFile: fs.PathLike): Promise<PredictionResult[]> {
-    const imageBuffer = await this.loadImageToBuffer(imageFile);
+  async getPrediction(imageBuffer: Buffer): Promise<PredictionResult[]> {
     const normalizedImage = await sharp(imageBuffer).rotate().toBuffer(); // auto-orient based on the EXIF orientation
 
     const request = {
