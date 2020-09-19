@@ -20,7 +20,7 @@ export function mapResponseToProduct(response: ProductResponse): Product {
         healthySugar: healthySugar,
         healthySalt,
         name: response.name,
-        description: response.description?.text,
+        description: response.description?.text ? response.description.text: 'Keine Beschreibung',
         image: response.image.original,
         brand:  response.brand.name,
         categories: response.categories.map((category) => {
