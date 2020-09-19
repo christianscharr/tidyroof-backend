@@ -1,4 +1,4 @@
-import {Controller, Get, Param, Post, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors} from '@nestjs/common';
 import {FileInterceptor} from '@nestjs/platform-express';
 import {ProductService} from '../../service/product.service';
 import {Product} from '../../types/migros-product.type';
@@ -11,8 +11,13 @@ export class ProductController {
 
 	@Get('/:id')
 	public async getProductInformation(@Param() params) {
-
 		return await this.productService.getProduct(params.id);
+	}
+
+
+	@Post('/recommended')
+	public async getRecommendedProducts(@Body() body) {
+		return await this.productService.getRecommendedProducts(body.id, body.allergens);
 	}
 
 	@Post('upload')
