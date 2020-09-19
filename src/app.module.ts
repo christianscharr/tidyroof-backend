@@ -5,8 +5,13 @@ import {AppService} from "./service/app.service";
 import {ProductService} from "./service/product.service";
 
 @Module({
-  imports: [HttpModule],
-  controllers: [AppController, ProductController],
-  providers: [AppService, ProductService],
+    imports: [HttpModule.registerAsync({
+        useFactory: () => ({
+            timeout: 10000,
+        }),
+    })
+    ],
+    controllers: [AppController, ProductController],
+    providers: [AppService, ProductService],
 })
 export class AppModule {}
