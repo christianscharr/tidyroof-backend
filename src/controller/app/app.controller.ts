@@ -11,10 +11,5 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file) {
-    console.log(file);
-    return [];
-  }
+
 }

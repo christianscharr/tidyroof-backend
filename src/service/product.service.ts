@@ -4,11 +4,15 @@ import {Product} from "../types/migros-product.type"
 
 @Injectable()
 export class ProductService {
+    cache: { [key: string]: Product } = {};
 
     constructor(private http: HttpService) {
     }
 
     async getProduct(id: string): Promise<any> {
+        if (this.cache[id]) {
+            return this.cache[id];
+        }
         const response = await this.http.get<ProductResponse>('https://hackzurich-api.migros.ch/products/' + id + '?view=browse&custom_image=false', { auth: {
                 username: "hackzurich2020",
                 password: "uhSyJ08KexKn4ZFS",
@@ -24,7 +28,9 @@ export class ProductService {
         }
 
         console.log(response);
-        return this.mapResponseToProduct(response.data);
+        let product = this.mapResponseToProduct(response.data);
+        this.cache[id] = product;
+        return product;
     }
 
     private mapResponseToProduct(response: ProductResponse): Product {
