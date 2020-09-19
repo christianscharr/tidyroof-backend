@@ -1,16 +1,16 @@
-export interface Product {
-	variants?:                  Product[];
-	views?:                     AllergenText[];
-	slug:                       AllergenText;
+export interface ProductResponse {
+	variants?:                  ProductResponse[];
+	views?:                     string[];
+	slug:                       string;
 	slugs:                      Slugs;
-	receipt_text:               AllergenText;
-	short_description:          AllergenText;
-	regulated_description:      AllergenText;
+	receipt_text:               string;
+	short_description:          string;
+	regulated_description:      string;
 	additional_descriptions:    Description[];
 	status:                     Status;
 	new_product:                NewProduct;
-	variety:                    AllergenText;
-	gtins:                      AllergenText[];
+	variety:                    string;
+	gtins:                      string[];
 	m_check:                    MCheck[];
 	price:                      Price;
 	regional_information:       { [key: string]: RegionalInformation };
@@ -18,7 +18,7 @@ export interface Product {
 	retailer:                   Retailer;
 	retailer_flags:             RetailerFlags;
 	links:                      Links;
-	videos:                     AllergenText[];
+	videos:                     string[];
 	colors:                     Color[];
 	purchasable_online:         boolean;
 	galaxus_relevant:           boolean;
@@ -28,15 +28,15 @@ export interface Product {
 	m_data:                     MData;
 	origins:                    Origins;
 	distributor:                Distributor;
-	ingredients:                AllergenText;
-	allergen_text:              AllergenText;
+	ingredients:                string;
+	allergen_text:              string;
 	allergens:                  Allergen[];
 	general_information:        GeneralInformation[];
 	chemicals_declaration:      ChemicalsDeclaration;
 	care_labels:                CareLabel[];
 	is_variant:                 boolean;
-	base_product_id:            AllergenText;
-	main_variant_id:            AllergenText;
+	base_product_id:            string;
+	main_variant_id:            string;
 	package:                    Package;
 	package_information:        PackageInformation;
 	attributes:                 Attributes;
@@ -54,49 +54,45 @@ export interface Product {
 	reindex_date:               Date;
 	warranty_extension_price:   number;
 	included_recycling_fee:     number;
-	id:                         AllergenText;
-	language:                   AllergenText;
-	name:                       AllergenText;
-	product_name:               AllergenText;
-	product_type:               AllergenText;
+	id:                         string;
+	language:                   string;
+	name:                       string;
+	product_name:               string;
+	product_type:               string;
 	vat:                        Vat;
 	description:                Description;
 	image:                      Image;
 	image_transparent:          Image;
 	additional_images:          Image[];
 	documents:                  Document[];
-	boss_number:                AllergenText;
+	boss_number:                string;
 	brand:                      Brand;
 	features:                   Feature[];
 	internal_features:          Feature[];
 	updated_at:                 Date;
 	online_shop_relevant:       boolean;
 	services:                   Services;
-	base_unit:                  AllergenText;
-	tags:                       AllergenText[];
+	base_unit:                  string;
+	tags:                       string[];
 }
 
 export interface Description {
-	text:   AllergenText;
-	source: AllergenText;
-}
-
-export enum AllergenText {
-	String = "string",
+	text:   string;
+	source: string;
 }
 
 export interface Image {
-	source:      AllergenText;
-	code:        AllergenText;
-	description: AllergenText;
-	original:    AllergenText;
-	custom:      AllergenText;
-	small:       AllergenText;
-	medium:      AllergenText;
-	large:       AllergenText;
-	hash:        AllergenText;
-	tags:        AllergenText[];
-	stack:       AllergenText;
+	source:      string;
+	code:        string;
+	description: string;
+	original:    string;
+	custom:      string;
+	small:       string;
+	medium:      string;
+	large:       string;
+	hash:        string;
+	tags:        string[];
+	stack:       string;
 }
 
 export interface NutritionFacts {
@@ -105,40 +101,40 @@ export interface NutritionFacts {
 }
 
 export interface Portion {
-	base_description:               AllergenText;
+	base_description:               string;
 	base_quantity:                  number;
-	base_quantity_description:      AllergenText;
-	base_precision:                 AllergenText;
-	base_unit:                      AllergenText;
-	package_type:                   AllergenText;
-	portions_per_package:           AllergenText;
-	portions_per_package_precision: AllergenText;
-	serving_description:            AllergenText;
-	serving_size_description:       AllergenText;
-	consumption_hint:               AllergenText;
-	preparation_state:              AllergenText;
+	base_quantity_description:      string;
+	base_precision:                 string;
+	base_unit:                      string;
+	package_type:                   string;
+	portions_per_package:           string;
+	portions_per_package_precision: string;
+	serving_description:            string;
+	serving_size_description:       string;
+	consumption_hint:               string;
+	preparation_state:              string;
 	nutrients:                      Nutrient[];
 }
 
 export interface Nutrient {
-	code:                    AllergenText;
-	name:                    AllergenText;
-	pictogram_name:          AllergenText;
-	category:                AllergenText;
+	code:                    string;
+	name:                    string;
+	pictogram_name:          string;
+	category:                string;
 	quantity:                number;
 	rda_percent:             number;
-	rda_percent_operator:    AllergenText;
-	nutrition_operator:      AllergenText;
-	quantity_unit:           AllergenText;
+	rda_percent_operator:    string;
+	nutrition_operator:      string;
+	quantity_unit:           string;
 	quantity_alternate:      number;
-	quantity_alternate_unit: AllergenText;
+	quantity_alternate_unit: string;
 }
 
 export interface Allergen {
-	code:               AllergenText;
-	name:               AllergenText;
-	contamination_code: AllergenText;
-	contamination:      AllergenText;
+	code:               string;
+	name:               string;
+	contamination_code: string;
+	contamination:      string;
 }
 
 export interface Attributes {
@@ -148,24 +144,24 @@ export interface Attributes {
 }
 
 export interface AttributesAdditionalProp1 {
-	name:      AllergenText;
-	value:     AllergenText;
-	hex_color: AllergenText;
-	code:      AllergenText;
+	name:      string;
+	value:     string;
+	hex_color: string;
+	code:      string;
 }
 
 export interface Brand {
-	id:          AllergenText;
-	name:        AllergenText;
-	slug:        AllergenText;
-	title:       AllergenText;
-	abstract:    AllergenText;
-	keywords:    AllergenText[];
-	headline:    AllergenText;
-	description: AllergenText;
+	id:          string;
+	name:        string;
+	slug:        string;
+	title:       string;
+	abstract:    string;
+	keywords:    string[];
+	headline:    string;
+	description: string;
 	image:       Image;
 	links:       Links;
-	tags:        AllergenText[];
+	tags:        string[];
 }
 
 export interface Links {
@@ -175,50 +171,50 @@ export interface Links {
 }
 
 export interface LinksAdditionalProp1 {
-	url:         AllergenText;
-	app_url:     AllergenText;
-	mobile_url:  AllergenText;
-	tablet_url:  AllergenText;
-	name:        AllergenText;
-	canonical:   AllergenText;
-	type:        AllergenText;
+	url:         string;
+	app_url:     string;
+	mobile_url:  string;
+	tablet_url:  string;
+	name:        string;
+	canonical:   string;
+	type:        string;
 	purchasable: boolean;
 	image:       Image;
 }
 
 export interface CareLabel {
-	id:    AllergenText;
-	name:  AllergenText;
+	id:    string;
+	name:  string;
 	image: Image;
 }
 
 export interface Category {
-	code:        AllergenText;
-	name:        AllergenText;
-	slug:        AllergenText;
+	code:        string;
+	name:        string;
+	slug:        string;
 	slugs:       Slugs;
-	title:       AllergenText;
-	abstract:    AllergenText;
-	keywords:    AllergenText[];
-	headline:    AllergenText;
-	parent_code: AllergenText;
+	title:       string;
+	abstract:    string;
+	keywords:    string[];
+	headline:    string;
+	parent_code: string;
 	image:       Image;
 	level:       number;
 	visible:     boolean;
 }
 
 export interface Slugs {
-	de: AllergenText;
-	fr: AllergenText;
-	it: AllergenText;
+	de: string;
+	fr: string;
+	it: string;
 }
 
 export interface ChemicalsDeclaration {
-	declaration_number:                 AllergenText;
-	product_id:                         AllergenText;
+	declaration_number:                 string;
+	product_id:                         string;
 	release_date:                       Date;
-	supplier_id:                        AllergenText;
-	supplier_description:               AllergenText;
+	supplier_id:                        string;
+	supplier_description:               string;
 	hazard_statements:                  SignalWord[];
 	precautionary_statements:           SignalWord[];
 	eu_hazard_statements:               SignalWord[];
@@ -232,8 +228,8 @@ export interface ChemicalsDeclaration {
 	hazard_classes:                     SignalWord[];
 	un_number:                          SignalWord;
 	signal_word:                        SignalWord;
-	cpid_number:                        AllergenText;
-	biozid_number_ch:                   AllergenText;
+	cpid_number:                        string;
+	biozid_number_ch:                   string;
 	chem_voc_concentration:             number;
 	poison_cabinet:                     boolean;
 	packaging_exceeds_limited_quantity: boolean;
@@ -249,25 +245,25 @@ export interface ChemicalsDeclaration {
 export interface CleaningAgent {
 	concentration: SignalWord;
 	group:         SignalWord;
-	name:          AllergenText;
+	name:          string;
 }
 
 export interface SignalWord {
-	code:  AllergenText;
-	label: AllergenText;
+	code:  string;
+	label: string;
 }
 
 export interface DeclarationRequiredIngredient {
-	name:          AllergenText;
-	cas_number:    AllergenText;
-	einecs_number: AllergenText;
+	name:          string;
+	cas_number:    string;
+	einecs_number: string;
 }
 
 export interface Color {
-	label:     AllergenText;
-	hex:       AllergenText;
-	group:     AllergenText;
-	group_hex: AllergenText;
+	label:     string;
+	hex:       string;
+	group:     string;
+	group_hex: string;
 }
 
 export interface Declarations {
@@ -275,19 +271,19 @@ export interface Declarations {
 }
 
 export interface Food {
-	directions:                       AllergenText;
-	label_aha:                        AllergenText;
-	allergen_statement:               AllergenText;
+	directions:                       string;
+	label_aha:                        string;
+	allergen_statement:               string;
 	additives_declaration_obligatory: SignalWord;
 	additives:                        Additive[];
 	features:                         Feature[];
 }
 
 export interface Additive {
-	code:              AllergenText;
-	label:             AllergenText;
-	containment_code:  AllergenText;
-	containment_label: AllergenText;
+	code:              string;
+	label:             string;
+	containment_code:  string;
+	containment_label: string;
 }
 
 export interface Feature {
@@ -296,54 +292,54 @@ export interface Feature {
 	pop_whitelist: boolean;
 	pop_order:     number;
 	pop_blacklist: boolean;
-	label_code:    AllergenText;
-	label:         AllergenText;
+	label_code:    string;
+	label:         string;
 	top_fact:      boolean;
-	unit_code:     AllergenText;
-	unit:          AllergenText;
-	unit_symbol:   AllergenText;
-	category_code: AllergenText;
+	unit_code:     string;
+	unit:          string;
+	unit_symbol:   string;
+	category_code: string;
 }
 
 export interface Value {
 	image:         Image;
-	value:         AllergenText;
-	value_code:    AllergenText;
+	value:         string;
+	value_code:    string;
 	boolean_value: boolean;
 	numeric_value: number;
 }
 
 export interface Distributor {
-	name:    AllergenText;
-	address: AllergenText;
+	name:    string;
+	address: string;
 }
 
 export interface Document {
-	label:    AllergenText;
-	purposes: AllergenText[];
-	url:      AllergenText;
-	type:     AllergenText;
+	label:    string;
+	purposes: string[];
+	url:      string;
+	type:     string;
 }
 
 export interface EnergyEfficiency {
-	efficiency_class: AllergenText;
+	efficiency_class: string;
 	class:            Class;
 	class_range:      Class;
 	arrow:            Image;
-	hex_color:        AllergenText;
+	hex_color:        string;
 	image:            Image;
 }
 
 export interface Class {
-	text:      AllergenText;
-	hex_color: AllergenText;
+	text:      string;
+	hex_color: string;
 }
 
 export interface Eyecatcher {
-	code:          AllergenText;
-	value_code:    AllergenText;
-	label_code:    AllergenText;
-	description:   AllergenText;
+	code:          string;
+	value_code:    string;
+	label_code:    string;
+	description:   string;
 	image:         Image;
 	pop_whitelist: boolean;
 	pop_order:     number;
@@ -352,16 +348,16 @@ export interface Eyecatcher {
 }
 
 export interface GeneralInformation {
-	label: AllergenText;
-	value: AllergenText;
+	label: string;
+	value: string;
 }
 
 export interface MCheck {
-	label:      AllergenText;
-	label_code: AllergenText;
-	value:      AllergenText;
-	value_code: AllergenText;
-	link:       AllergenText;
+	label:      string;
+	label_code: string;
+	value:      string;
+	value_code: string;
+	link:       string;
 	image:      Image;
 }
 
@@ -379,39 +375,39 @@ export interface NewProduct {
 }
 
 export interface Origins {
-	producing_country:      AllergenText;
-	production_facility_id: AllergenText;
-	supplier_country:       AllergenText;
-	origins_information:    AllergenText;
-	country_of_origin:      AllergenText;
-	material_country_code:  AllergenText;
-	place_of_provenance:    AllergenText;
-	place_of_birth:         AllergenText;
-	place_of_rearing:       AllergenText;
-	place_of_slaughter:     AllergenText;
-	catch_areas:            AllergenText[];
+	producing_country:      string;
+	production_facility_id: string;
+	supplier_country:       string;
+	origins_information:    string;
+	country_of_origin:      string;
+	material_country_code:  string;
+	place_of_provenance:    string;
+	place_of_birth:         string;
+	place_of_rearing:       string;
+	place_of_slaughter:     string;
+	catch_areas:            string[];
 }
 
 export interface Package {
 	content:                  number;
-	content_unit_code:        AllergenText;
-	content_unit:             AllergenText;
+	content_unit_code:        string;
+	content_unit:             string;
 	net_weight:               number;
-	net_weight_unit_code:     AllergenText;
-	net_weight_unit:          AllergenText;
-	type:                     AllergenText;
-	portions_per_package:     AllergenText;
-	precision:                AllergenText;
+	net_weight_unit_code:     string;
+	net_weight_unit:          string;
+	type:                     string;
+	portions_per_package:     string;
+	precision:                string;
 	brutto_weight:            number;
-	brutto_weight_unit_code:  AllergenText;
+	brutto_weight_unit_code:  string;
 	brutto_volume:            number;
-	brutto_volume_unit_code:  AllergenText;
+	brutto_volume_unit_code:  string;
 	height:                   number;
 	length:                   number;
 	width:                    number;
-	unit_dimension:           AllergenText;
+	unit_dimension:           string;
 	price_comparison_content: number;
-	size:                     AllergenText;
+	size:                     string;
 }
 
 export interface PackageInformation {
@@ -422,13 +418,13 @@ export interface PackageInformation {
 
 export interface PackageInformationAdditionalProp1 {
 	brutto_weight:           number;
-	brutto_weight_unit_code: AllergenText;
+	brutto_weight_unit_code: string;
 	brutto_volume:           number;
-	brutto_volume_unit_code: AllergenText;
+	brutto_volume_unit_code: string;
 	height:                  number;
 	length:                  number;
 	width:                   number;
-	dimension_unit_code:     AllergenText;
+	dimension_unit_code:     string;
 	number_of_base_units:    number;
 }
 
@@ -439,22 +435,22 @@ export interface Pop {
 }
 
 export interface Template {
-	code:                          AllergenText;
-	language:                      AllergenText;
-	catalog:                       AllergenText;
+	code:                          string;
+	language:                      string;
+	catalog:                       string;
 	print_only_whitelist_features: boolean;
 }
 
 export interface Price {
 	base?:                           Base;
 	discount?:                       Discount;
-	discount_hint?:                  AllergenText;
+	discount_hint?:                  string;
 	estimated_piece_original_price?: number;
 	valid_from:                      Date;
 	valid_to:                        Date;
-	currency:                        AllergenText;
-	source:                          AllergenText;
-	no_price_hint:                   AllergenText;
+	currency:                        string;
+	source:                          string;
+	no_price_hint:                   string;
 	item:                            Base;
 	estimated_piece_weight:          number;
 	estimated_piece_price:           number;
@@ -464,89 +460,89 @@ export interface Base {
 	price:            number;
 	original_price:   number;
 	quantity:         number;
-	unit:             AllergenText;
+	unit:             string;
 	varying_quantity: boolean;
-	display_quantity: AllergenText;
+	display_quantity: string;
 }
 
 export interface Discount {
-	id:                     AllergenText;
-	cms_id:                 AllergenText;
-	channel:                AllergenText;
-	region:                 AllergenText;
+	id:                     string;
+	cms_id:                 string;
+	channel:                string;
+	region:                 string;
 	year:                   number;
 	start_date:             Date;
 	end_date:               Date;
-	calendar_week:          AllergenText;
-	duration:               AllergenText;
+	calendar_week:          string;
+	duration:               string;
 	duration_days:          number;
-	discount_type:          AllergenText;
-	location_planning_type: AllergenText;
-	discount_type_id:       AllergenText;
-	reduction_type_id:      AllergenText;
-	discount_type_label:    AllergenText;
+	discount_type:          string;
+	location_planning_type: string;
+	discount_type_id:       string;
+	reduction_type_id:      string;
+	discount_type_label:    string;
 	special_advertisement:  boolean;
-	advertisement_type_id:  AllergenText;
-	discount_regions:       AllergenText[];
-	reference_product_id:   AllergenText;
-	organisation:           AllergenText;
-	cooperative:            AllergenText;
-	description:            AllergenText;
-	discount_hint:          AllergenText;
+	advertisement_type_id:  string;
+	discount_regions:       string[];
+	reference_product_id:   string;
+	organisation:           string;
+	cooperative:            string;
+	description:            string;
+	discount_hint:          string;
 	fantastic_price:        boolean;
 	high_performer:         boolean;
 	collective_discount:    boolean;
-	selling_unit:           AllergenText;
-	discount_amount:        AllergenText;
-	savings:                AllergenText;
-	instead_of:             AllergenText;
+	selling_unit:           string;
+	discount_amount:        string;
+	savings:                string;
+	instead_of:             string;
 	price:                  number;
 	original_price:         number;
 	profit:                 number;
-	disclaimer:             AllergenText;
+	disclaimer:             string;
 	image:                  Image;
 	image_transparent:      Image;
 	secondary_image:        Image;
 	additional_images:      Image[];
 	logo:                   Image;
 	secondary_logo:         Image;
-	newsletter_image:       AllergenText;
+	newsletter_image:       string;
 	badge:                  Badge;
-	source:                 AllergenText;
-	boss_number:            AllergenText;
+	source:                 string;
+	boss_number:            string;
 	publication_date:       Date;
-	discount_role_id:       AllergenText;
-	discount_role_label:    AllergenText;
-	visibility:             AllergenText;
+	discount_role_id:       string;
+	discount_role_label:    string;
+	visibility:             string;
 	last_imported:          Date;
 	last_mapped:            Date;
-	campaign_ids:           AllergenText[];
-	tags:                   AllergenText[];
+	campaign_ids:           string[];
+	tags:                   string[];
 }
 
 export interface Badge {
-	original:      AllergenText;
-	stack:         AllergenText;
-	custom:        AllergenText;
-	hdpi_detail:   AllergenText;
-	hdpi_list:     AllergenText;
-	hdpi_slider:   AllergenText;
-	ios_detail:    AllergenText;
-	ios_list:      AllergenText;
-	ios_slider:    AllergenText;
-	ios2x_detail:  AllergenText;
-	ios2x_list:    AllergenText;
-	ios2x_slider:  AllergenText;
-	mdpi_detail:   AllergenText;
-	mdpi_list:     AllergenText;
-	mdpi_slider:   AllergenText;
-	xhdpi_detail:  AllergenText;
-	xhdpi_list:    AllergenText;
-	xhdpi_slider:  AllergenText;
-	xxhdpi_detail: AllergenText;
-	xxhdpi_list:   AllergenText;
-	xxhdpi_slider: AllergenText;
-	ios_slider2x:  AllergenText;
+	original:      string;
+	stack:         string;
+	custom:        string;
+	hdpi_detail:   string;
+	hdpi_list:     string;
+	hdpi_slider:   string;
+	ios_detail:    string;
+	ios_list:      string;
+	ios_slider:    string;
+	ios2x_detail:  string;
+	ios2x_list:    string;
+	ios2x_slider:  string;
+	mdpi_detail:   string;
+	mdpi_list:     string;
+	mdpi_slider:   string;
+	xhdpi_detail:  string;
+	xhdpi_list:    string;
+	xhdpi_slider:  string;
+	xxhdpi_detail: string;
+	xxhdpi_list:   string;
+	xxhdpi_slider: string;
+	ios_slider2x:  string;
 }
 
 export interface Ratings {
@@ -575,13 +571,13 @@ export interface RelatedProducts {
 }
 
 export interface PurchaseRecommendations {
-	product_ids: AllergenText[];
-	name:        AllergenText;
+	product_ids: string[];
+	name:        string;
 }
 
 export interface Retailer {
-	id:   AllergenText;
-	name: AllergenText;
+	id:   string;
+	name: string;
 }
 
 export interface RetailerFlags {
@@ -599,7 +595,7 @@ export interface Bikeworld {
 	reservable:            boolean;
 	stock_request:         boolean;
 	visible:               boolean;
-	exclude_cross_channel: AllergenText[];
+	exclude_cross_channel: string[];
 }
 
 export interface Services {
@@ -608,26 +604,26 @@ export interface Services {
 }
 
 export interface Logistic {
-	code:      AllergenText;
+	code:      string;
 	min:       number;
 	max:       number;
 	mandatory: boolean;
 }
 
 export interface Status {
-	id:                 AllergenText;
+	id:                 string;
 	seasonal:           boolean;
 	active:             NewProduct;
 	seasonal_type_code: string;
 	selling_start_date: Date;
-	pim_status:         AllergenText;
-	description:        AllergenText;
+	pim_status:         string;
+	description:        string;
 }
 
 export interface UtzDeclaration {
-	lot_number: AllergenText;
-	members:    AllergenText[];
-	url:        AllergenText;
+	lot_number: string;
+	members:    string[];
+	url:        string;
 }
 
 export interface Vat {
