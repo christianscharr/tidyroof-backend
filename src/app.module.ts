@@ -1,7 +1,7 @@
-import { HttpModule, Module } from '@nestjs/common';
-import { ProductController } from './controller/product/product.controller';
-import { ProductService } from './service/product.service';
-import { PredictionService } from './service/prediction.service';
+import {HttpModule, Module} from '@nestjs/common';
+import {ProductController} from './controller/product/product.controller';
+import {ProductService} from './service/product.service';
+import {PredictionService} from './service/prediction.service';
 
 @Module({
     imports: [HttpModule.registerAsync({
@@ -10,8 +10,8 @@ import { PredictionService } from './service/prediction.service';
         }),
     }),
     ],
-    controllers: [AppController, ProductController],
-    providers: [AppService, ProductService, PredictionService],
+    controllers: [ProductController],
+    providers: [ProductService, PredictionService],
 })
 export class AppModule {
 }
