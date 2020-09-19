@@ -1,4 +1,4 @@
-import {HttpService, Injectable, NotFoundException} from '@nestjs/common';
+import {HttpService, Injectable, Logger, NotFoundException} from '@nestjs/common';
 import {ProductResponse} from '../types/migros-product-response';
 import {Product} from '../types/migros-product.type';
 import {mapResponseToProduct} from './product.mapper';
@@ -9,10 +9,12 @@ export class ProductService {
 	productIdCache: { [key: string]: string } = {};
 	productListCache: { [key: string]: ProductResponse[] } = {};
 
+	logger = new Logger();
+
 	constructor(private http: HttpService) {
 	}
 
-	async getProduct(id: string): Promise<Product> {
+	async getProduct(id: string, secondTry?: boolean): Promise<Product> {
 		if (this.productCache[id]) {
 			return this.productCache[id];
 		}
@@ -28,7 +30,12 @@ export class ProductService {
 			}
 		}).toPromise();
 		if (response.status !== 200) {
-			return null;
+			if (secondTry === true) {
+				return null;
+			} else {
+				this.logger.debug('first try failed. getProduct');
+				return this.getProduct(id, true);
+			}
 		}
 
 		let product = mapResponseToProduct(response.data);
@@ -37,7 +44,7 @@ export class ProductService {
 	}
 
 
-	async getProductByGtin(gtin: string): Promise<Product> {
+	async getProductByGtin(gtin: string, secondTry?: boolean): Promise<Product> {
 		let productId;
 		if (!this.productIdCache[gtin]) {
 			const response = await this.http.get<{ products: ProductResponse[] }>(`https://hackzurich-api.migros.ch/products?limit=10&offset=0&facet_sort_order=asc&sort=score&order=asc&region=national&gtins=${gtin}&view=browse&custom_image=false`, {
@@ -52,6 +59,15 @@ export class ProductService {
 				}
 			}).toPromise();
 
+			if (response.status !== 200) {
+				if (secondTry === true) {
+					return null;
+				} else {
+					this.logger.debug('first try failed. getProductByGtin');
+					return this.getProductByGtin(gtin, true);
+				}
+			}
+
 			if (response.data.products.length === 0) {
 				throw new NotFoundException('no product found with gtin');
 			}
@@ -64,7 +80,7 @@ export class ProductService {
 		return this.getProduct(productId);
 	}
 
-	async getRecommendedProducts(id: string, allergens: string[]): Promise<ProductResponse[]> {
+	async getRecommendedProducts(id: string, allergens: string[], secondTry?: boolean): Promise<ProductResponse[]> {
 		const product = await this.getProduct(id);
 
 		const key = id + allergens.sort().join(', ');
@@ -85,6 +101,15 @@ export class ProductService {
 				'accept-language': 'de',
 			}
 		}).toPromise();
+
+		if (response.status !== 200) {
+			if (secondTry === true) {
+				return null;
+			} else {
+				this.logger.debug('first try failed. getRecommendedProducts');
+				return this.getRecommendedProducts(id, allergens, true);
+			}
+		}
 
 		let productList = response.data.products.map(product => ({
 			...product,
