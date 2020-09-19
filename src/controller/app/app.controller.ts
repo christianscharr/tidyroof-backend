@@ -15,5 +15,6 @@ export class AppController {
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file) {
     console.log(file);
+    return [];
   }
 }
