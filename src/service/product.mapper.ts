@@ -4,14 +4,18 @@ import {Product} from "../types/migros-product.type";
 export function mapResponseToProduct(response: ProductResponse): Product {
     const nutrients = response.nutrition_facts?.standard ? response.nutrition_facts.standard.nutrients : undefined;
     let healthySugar = true;
+    let totalSugar;
     let healthySalt = true;
+    let totalSalt;
     if (nutrients) {
         const sugar = nutrients.find(nutrient => nutrient.name.toLowerCase().includes("zucker"));
-        if (response.package.content / 100 * sugar.quantity > 25) {
+        totalSugar = response.package.content / 100 * sugar.quantity;
+        if (totalSugar > 25) {
             healthySugar = false;
         }
         const salt = nutrients.find(nutrient => nutrient.name.toLowerCase().includes("salz"));
-        if (response.package.content / 100 * salt.quantity > 2.5) {
+        totalSalt = response.package.content / 100 * salt.quantity;
+        if (totalSalt > 2.5) {
             healthySalt = false;
         }
     }
@@ -19,6 +23,8 @@ export function mapResponseToProduct(response: ProductResponse): Product {
         id: response.id,
         healthySugar: healthySugar,
         healthySalt,
+        totalSugar,
+        totalSalt,
         name: response.name,
         description: response.description?.text ? unescape(response.description.text): 'Keine Beschreibung',
         image: response.image.original,
