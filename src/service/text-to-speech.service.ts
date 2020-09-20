@@ -5,6 +5,7 @@ import * as util from 'util';
 import {google} from "@google-cloud/text-to-speech/build/protos/protos";
 import ISynthesizeSpeechRequest = google.cloud.texttospeech.v1.ISynthesizeSpeechRequest;
 import {Product} from "../types/migros-product.type";
+import { uuid } from 'uuidv4';
 
 @Injectable()
 export class TextToSpeechService {
@@ -32,11 +33,11 @@ export class TextToSpeechService {
 
         // Performs the text-to-speech request
         const [response] = await this.client.synthesizeSpeech(request);
-        return response.audioContent;
-
         // Write the binary audio content to a local file
-        // const writeFile = util.promisify(fs.writeFile);
-        // await writeFile('output.mp3', response.audioContent, 'binary');
+        const writeFile = util.promisify(fs.writeFile);
+        const id = uuid();
+        await writeFile('./public/' + id + '.mp3', response.audioContent, 'binary');
+        return {productId: product.id, fileId: id};
     }
 
 }

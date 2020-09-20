@@ -44,9 +44,7 @@ export class ProductController {
         const predictions = await this.predictionService.getPrediction(file.buffer);
         return Promise.all(predictions.map(async (prediction) => {
             let product = await this.productService.getProduct(prediction.productId);
-            return {
-                audioOption: await this.textToSpeechService.getAudio(product)
-            }
+            return await this.textToSpeechService.getAudio(product);
         }));
     }
 
