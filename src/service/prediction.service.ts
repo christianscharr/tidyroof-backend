@@ -5,13 +5,7 @@ import * as sharp from 'sharp';
 
 export interface PredictionResult {
   productId: string,
-  score: number,
-  boundingBox: {
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-  }
+  score: number
 }
 
 @Injectable()
@@ -54,18 +48,25 @@ export class PredictionService {
     };
 
     const [response] = await this.client.predict(request);
+    const resultMap = new Map<string, number>();
 
     for (const annotationPayload of response.payload) {
-      console.log(annotationPayload);
-      console.log(`Predicted class name: ${annotationPayload.displayName}`);
-      console.log(`Predicted class score: ${annotationPayload.imageObjectDetection.score}`);
-      console.log('Normalized vertices:');
+      const label = annotationPayload.displayName;
+      const score = annotationPayload.imageObjectDetection.score;
+      console.log(`Predicted class: ${label}`);
+      console.log(`Predicted score: ${score}`);
 
-      for (const vertex of annotationPayload.imageObjectDetection.boundingBox.normalizedVertices) {
-        console.log(`\tX: ${vertex.x}, Y: ${vertex.y}`);
+      if (!resultMap.has(label) || resultMap.get(label) < score) {
+        resultMap.set(label, score);
       }
     }
 
-    return [];
+    const resultArray: PredictionResult[] = [];
+
+    resultMap.forEach((rScore, rLabel) => {
+      resultArray.push({score: rScore, productId: rLabel.split("_")[0]});
+    });
+
+    return resultArray;
   }
 }
