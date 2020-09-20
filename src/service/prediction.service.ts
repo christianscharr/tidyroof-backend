@@ -13,7 +13,9 @@ export class PredictionService {
   // constants
   private static PROJECT_ID = '184623698023';
   private static REGION = 'us-central1';
-  private static MODEL_ID = 'IOD5266838817930739712';
+  // private static MODEL_ID = 'IOD5266838817930739712'; // V1
+  private static MODEL_ID = 'IOD8305853772731514880'; // V2
+
   private static SCORE_THRESHOLD = '0.7';
 
   // Instantiates a client
@@ -53,8 +55,6 @@ export class PredictionService {
     for (const annotationPayload of response.payload) {
       const label = annotationPayload.displayName;
       const score = annotationPayload.imageObjectDetection.score;
-      console.log(`Predicted class: ${label}`);
-      console.log(`Predicted score: ${score}`);
 
       if (!resultMap.has(label) || resultMap.get(label) < score) {
         resultMap.set(label, score);
