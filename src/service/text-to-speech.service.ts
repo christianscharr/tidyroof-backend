@@ -25,7 +25,6 @@ export class TextToSpeechService {
         const request = {
             input: {text: text},
             // Select the language and SSML voice gender (optional)
-            // TODO: Sprache Deutsch!
             voice: {languageCode: 'de-ch', ssmlGender: 'NEUTRAL'},
             // select the type of audio encoding
             audioConfig: {audioEncoding: 'MP3'},

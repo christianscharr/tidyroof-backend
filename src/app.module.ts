@@ -2,6 +2,7 @@ import {HttpModule, Module} from '@nestjs/common';
 import {ProductController} from './controller/product/product.controller';
 import {ProductService} from './service/product.service';
 import {PredictionService} from './service/prediction.service';
+import {TextToSpeechService} from "./service/text-to-speech.service";
 
 @Module({
     imports: [HttpModule.registerAsync({
@@ -11,7 +12,7 @@ import {PredictionService} from './service/prediction.service';
     }),
     ],
     controllers: [ProductController],
-    providers: [ProductService, PredictionService],
+    providers: [ProductService, PredictionService, TextToSpeechService],
 })
 export class AppModule {
 }
