@@ -9,15 +9,21 @@ export function mapResponseToProduct(response: ProductResponse): Product {
     let totalSalt;
     if (nutrients) {
         const sugar = nutrients.find(nutrient => nutrient.name.toLowerCase().includes("zucker"));
-        totalSugar = response.package.content / 100 * sugar.quantity;
-        if (totalSugar > 25) {
-            healthySugar = false;
+        if (sugar) {
+            totalSugar = response.package.content / 100 * sugar.quantity;
+            if (totalSugar > 25) {
+                healthySugar = false;
+            }
         }
+
         const salt = nutrients.find(nutrient => nutrient.name.toLowerCase().includes("salz"));
-        totalSalt = response.package.content / 100 * salt.quantity;
-        if (totalSalt > 2.5) {
-            healthySalt = false;
+        if (salt) {
+            totalSalt = response.package.content / 100 * salt.quantity;
+            if (totalSalt > 2.5) {
+                healthySalt = false;
+            }
         }
+
     }
     return {
         id: response.id,
