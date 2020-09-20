@@ -15,6 +15,7 @@ export class TextToSpeechService {
     constructor() {}
 
     async getAudio(product: Product) {
+        console.log(product)
         // The text to synthesize
         const text = `
             Produkt: ${product.name},
