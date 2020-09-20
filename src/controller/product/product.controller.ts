@@ -31,7 +31,6 @@ export class ProductController {
 	async uploadFile(@UploadedFile() file) {
 		console.log(file);
 		const predictions = await this.predictionService.getPrediction(file.buffer);
-		console.log(predictions);
-		return predictions;
+		return Promise.all(predictions.map(prediction => this.productService.getProduct(prediction.productId)));
 	}
 }
